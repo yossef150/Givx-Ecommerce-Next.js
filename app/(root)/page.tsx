@@ -1,12 +1,12 @@
 import React from 'react'
-import sampleData from '@/sample-data/db/sample-data'
 import ProductList from '@/components/shared/product/ProductList'
-function page() {
+import { getLatestCollection } from '@/lib/actions/product.actions'
+async function page() {
   const title = 'Newest Arrivals'
-  // console.log(sampleData.products)
+  const latestProducts = await getLatestCollection();
   return (
       <div className="max-width-screen-xl mx-auto">
-        <ProductList title = {title} data = {sampleData.products}/>
+        <ProductList title = {title} data = {latestProducts}/>
       </div>
   )
 }

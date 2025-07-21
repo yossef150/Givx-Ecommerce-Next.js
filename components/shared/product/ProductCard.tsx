@@ -8,7 +8,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import ProductPrice from './ProductPrice'
 import ProductRating from './ProductRating'
-function ProductCard({product} : {product: any}) {
+import { Product } from '@/types'
+
+function ProductCard({product} : {product: Product}) {
   return (
      <Card>
         <CardHeader className='p-0 flex-center'>

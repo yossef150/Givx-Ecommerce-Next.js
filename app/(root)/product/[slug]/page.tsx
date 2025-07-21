@@ -14,7 +14,7 @@ async function page(props : {params: Promise<{slug: string}>}) {
     if(!product) return notFound();
   return (
     <section>
-      <div className="grid grid-cols-1 md:grid-cols-5">
+      <div className="grid grid-cols-1 gap-12 md:grid-cols-5 md:gap-4 ">
         <div className="col-span-2">
           {/* Images here */}
           <ProductImage images={product.images}/>

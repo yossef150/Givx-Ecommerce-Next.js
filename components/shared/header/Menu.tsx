@@ -2,7 +2,7 @@ import React from 'react'
 import ToggleTheme from './ToggleTheme'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { ShoppingCart, UserIcon, MenuIcon } from 'lucide-react'
+import { ShoppingCart, MenuIcon} from 'lucide-react'
 import {
   Sheet,
   SheetContent,
@@ -10,6 +10,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import UserButton from './UserButton'
 
 function Menu() {
   return (
@@ -19,9 +20,7 @@ function Menu() {
         <Button asChild variant= 'ghost'>
             <Link href='/cart'> <ShoppingCart/> Cart </Link>
         </Button>
-        <Button asChild>
-            <Link href='/sign-in'> <UserIcon/> Sign In </Link>
-        </Button>
+        <UserButton/>
     </div>
     <div className='md:hidden'>
         <Sheet>
@@ -34,9 +33,7 @@ function Menu() {
             <Button asChild variant= 'ghost'>
              <Link href='/cart'> <ShoppingCart/> Cart </Link>
             </Button>
-            <Button asChild>
-             <Link href='/sign-in'> <UserIcon/> Sign In </Link>
-            </Button>
+            <UserButton/>
             {/* </div> */}
         </SheetContent>
         </Sheet>

@@ -4,6 +4,9 @@ import { loginSchema, signUpSchema } from "../validators/validation";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { prisma } from "../prisma";
 import { hashSync } from "bcrypt-ts";
+import { formatError } from '../utils';
+
+
 export async function loginUser(prevState: unknown, formData: FormData)
 {
 
@@ -18,7 +21,7 @@ export async function loginUser(prevState: unknown, formData: FormData)
     } catch (error) {
          if (isRedirectError(error)) {
             throw error; }
-        return {success: false, message: 'Invalid email or password'};
+        return {success: false, message: 'Invalid Email or Password'};
     }
 }
 export async function signUpUser(prevState: unknown, formData: FormData)
@@ -50,7 +53,7 @@ export async function signUpUser(prevState: unknown, formData: FormData)
     } catch (error) {
          if (isRedirectError(error)) {
             throw error; }
-        return {success: false, message: 'Failed to create account'};
+        return {success: false, message: formatError(error)};
     }
 }
 

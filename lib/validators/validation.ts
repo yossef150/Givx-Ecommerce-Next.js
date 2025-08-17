@@ -33,17 +33,32 @@ export const signUpSchema = z.object({
     message: "Passwords don't match",
     path: ['confirmPassword']
 })
-//   id          String   @id @default(uuid()) @db.Uuid
-//   name        String
-//   slug        String   @unique(map: "product_slug_idx")
-//   category    String
-//   description String
-//   images      String[]
-//   price       Decimal  @db.Decimal(12, 2)
-//   brand       String
-//   rating Decimal @db.Decimal(3, 2)
-//   numReviews Int
-//   stock Int
-//   isFeatured Boolean @default(false)
-//   banner String?
-//   createdAt   DateTime @default(now())
+
+export const cartItemSchema = z.object({
+    id: z.string().min(1, 'Product id is required'),
+    name: z.string().min(1, 'Product name is required'),
+    slug: z.string().min(1, 'Product slug is required'),
+    qty: z.number().int().nonnegative('Quantity must be a positive number'),
+    image: z.string().min(1, 'Product image is required'),
+    price: currency
+})
+
+export const insertCartSchema = z.object({
+    items: z.array(cartItemSchema),
+    itemsPrice: currency,
+    totalPrice: currency,
+    shippingPrice: currency,
+    taxPrice: currency,
+    sessionCartId: z.string().min(1, 'Session cart id is required'),
+    userId: z.string().optional().nullable(),
+})
+//  id            String   @id @default(uuid()) @db.Uuid
+//   userId        String?  @db.Uuid @unique
+//   sessionCartId String
+//   items         Json[]   @default([]) @db.Json
+//   itemsPrice    Decimal  @db.Decimal(12, 2)
+//   totalPrice    Decimal  @db.Decimal(12, 2)
+//   shippingPrice Decimal  @db.Decimal(12, 2)
+//   taxPrice      Decimal  @db.Decimal(12, 2)
+//   createdAt     DateTime @default(now()) @db.Timestamp(6)
+//   user User? @relation(fields: [userId], references: [id])

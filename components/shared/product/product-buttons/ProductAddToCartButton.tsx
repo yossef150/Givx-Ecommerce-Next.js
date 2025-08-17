@@ -31,6 +31,8 @@ function ProductAddToCartButton({item}: {item: CartItem}) {
     <Button
       onClick={() => {handleAddToCart()}}
       className="w-full"
+      type='button'
+      variant='outline'
       disabled = {isPending}
     >
       <Plus/>

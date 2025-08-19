@@ -24,7 +24,7 @@ async function UserButton() {
     <div className='flex-center'>
       <DropdownMenu>
         <DropdownMenuTrigger asChild className='flex-center'>
-            <Button variant='ghost' className='w-8 h-8 rounded-full bg-gray-200 flex-center'>{initialName}</Button>
+            <Button variant='ghost' className='w-8 h-8 rounded-full bg-gray-200 dark:text-gray-900 dark:hover:text-gray-50 flex-center'>{initialName}</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
             <DropdownMenuLabel>

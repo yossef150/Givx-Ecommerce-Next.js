@@ -3,7 +3,7 @@ import { authConfig } from '@/auth.config';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { prisma } from '@/lib/prisma';
 import { cookies } from 'next/headers';
-import { compare } from './lib/encrypt';
+import { compare } from 'bcrypt-ts';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -34,6 +34,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         // Check if user exists and if the password matches
         if (user && user.password) {
+          console.log(`credentials.password = ${credentials.password}, user.password = ${user.password}`)
           const isMatch = await compare(
             credentials.password as string,
             user.password
@@ -55,7 +56,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
-    ...authConfig.callbacks,
+    authorized: authConfig.callbacks?.authorized,
     async session({ session, user, trigger, token }) {
       // Set the user ID from the token
       session.user.id = token.sub as string;

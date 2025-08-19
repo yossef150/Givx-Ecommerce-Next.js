@@ -18,7 +18,8 @@ import { formatCurrency } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Loader } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-function CartTable({cart}: {cart: Cart}) {
+
+function CartTable({cart}: {cart?: Cart}) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   return (
@@ -63,8 +64,8 @@ function CartTable({cart}: {cart: Cart}) {
         <Card>
           <CardContent className='p-4 gap-4'>
             <div className='pb-3 text-xl'>
-              Subtotal ({cart.items.reduce((a, c) => a + c.qty, 0)}):
-              {formatCurrency(cart.itemsPrice)}
+              Subtotal ({cart?.items.reduce((a, c) => a + c.qty, 0)}):
+              {cart && formatCurrency(cart.itemsPrice)}
             </div>
             <Button
               onClick={() => startTransition(() => router.push('/shipping-address'))}

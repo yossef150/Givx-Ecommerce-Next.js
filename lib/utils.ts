@@ -23,19 +23,19 @@ export function convertToPlainObject<T>(value: T): T {
 export function formatError(error: any): string {
   if (error.name === 'ZodError') {
     // Handle Zod error
-    const fieldErrors = Object.keys(error.errors).map((field) => {
-      const message = error.errors[field].message;
-      return typeof message === 'string' ? message : JSON.stringify(message);
-    });
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const fieldErrors = error.errors.map((e: any) => e.message);
     return fieldErrors.join('. ');
   } else if (
     error.name === 'PrismaClientKnownRequestError' &&
     error.code === 'P2002'
   ) {
     // Handle Prisma error
-    const field = error.meta?.target ? error.meta.target[0] : 'Field';
-    return `${field.charAt(0).toUpperCase() + field.slice(1)} already exists`;
+    const fields = Array.isArray(error.meta?.target)
+      ? error.meta.target.join(', ')
+      : error.meta?.target ?? 'Field';
+
+    return `${fields} already exists`;
   } else {
     // Handle other errors
     return typeof error.message === 'string'
@@ -43,6 +43,7 @@ export function formatError(error: any): string {
       : JSON.stringify(error.message);
   }
 }
+
 
 // Round to 2 decimal places
 export const round2 = (value: number | string) => {
